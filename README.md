@@ -43,7 +43,7 @@ index.html is a template for an HTML file. This index.html first imports the lib
 
 The sketch.js is a template for the p5.js sketch, with the functions setup() and draw() that you can complete.
 
-## README.txt
+## README.md
 
 This README file formatted with Markdown :)
 
