@@ -34,7 +34,7 @@ function preload() {
 
 // Intialize world
 function setup() {
-  createCanvas(640, 640);
+  createCanvas(windowWidth, windowHeight - 10);
   world.gravity.y = 15;
 
   background(bgColor);
@@ -116,6 +116,10 @@ function draw() {
     dino.debug = mouse.holding();
   }
   describe("Move square with arrow keys.");
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight - 10);
 }
 
 function movePlayer() {
