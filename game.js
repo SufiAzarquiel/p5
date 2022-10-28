@@ -28,8 +28,8 @@ function preload() {
   replayButton = loadImage("images/replayButton.png");
   gameOverText = loadImage("images/gameOver.png");
   cloudImg = loadImage("images/cloud.png");
-  terrain_1 = loadImage("images/terrain_1.png");
-  terrain_2 = loadImage("images/terrain_2.png");
+  terrain_1_img = loadImage("images/terrain_1.png");
+  terrain_2_img = loadImage("images/terrain_2.png");
 }
 
 // Intialize world
@@ -38,14 +38,25 @@ function setup() {
   world.gravity.y = 15;
 
   background(bgColor);
+  frameRate(60);
 
   ground = new Sprite();
   ground.y = height - 100;
   ground.x = width / 2;
   ground.w = width;
-  ground.h = 3;
+  ground.h = 1;
   ground.collider = "static";
-  ground.color = "black";
+  ground.color = color(0);
+
+  terrain_1 = new Sprite();
+  terrain_1.x = random(width, width+100);
+  terrain_1.y = height - 105.5;
+  terrain_1_img.resize(70*1, 13*1);
+  terrain_1.addImage("terrain_1", terrain_1_img);
+  terrain_1.w = 70*1;
+  terrain_1.h = 13*1;
+  terrain_1.collider = "none";
+  terrain_1.vel.x = -5;
 
   clouds = new Group();
   clouds.w = 110;
@@ -85,11 +96,13 @@ function draw() {
     runAni.stop();
     clouds.vel.x = 0;
     dirt.vel.x = 0;
+    terrain_1.vel.x = 0;
   } else if (kb.presses("s")) {
     quit = false;
     runAni.play();
     clouds.vel.x = -2;
     dirt.vel.x = -5;
+    terrain_1.vel.x = -5;
   }
 
   if (!quit) {
@@ -112,6 +125,10 @@ function draw() {
         dirt.vel.x = -5;
       }
     }
+    if (terrain_1.x < -100) {
+      terrain_1.x = width;
+      terrain_1.vel.x = -5;
+    }
     clouds.debug = mouse.holding();
     dino.debug = mouse.holding();
   }
@@ -126,6 +143,5 @@ function movePlayer() {
   // Change velocity based on key pressed
   if (kb.presses("ArrowUp")) {
       dino.vel.y = -6;
-      subsequent = false;
   }
 }
