@@ -1,6 +1,6 @@
-# Welcome to p5.js
+# DinoClone
 
-You have downloaded the complete p5.js library ZIP file, yay!
+Clone of the chrome dino game!
 
 # Contents of the p5 folder
 
