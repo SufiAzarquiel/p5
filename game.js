@@ -14,6 +14,7 @@ let terrain_1;
 let ground;
 let dirtDensity = 10;
 const bgColor = 255;
+const obstacleVel = -5;
 let quit = false;
 
 function preload() {
@@ -68,6 +69,14 @@ function setup() {
   clouds.collider = "none";
   clouds.vel.x = -1;
 
+  cactus = new Sprite();
+  cactus.w = 40;
+  cactus.h = 80;
+  cactus.x = width;
+  cactus.y = ground.y - cactus.h;
+  cactus.addImage("cactus", cactusSmall);
+  cactus.vel.x = obstacleVel;
+
   dirt = new Group();
   dirt.color = "black";
   dirt.w = () => random(6, 20);
@@ -110,6 +119,8 @@ function draw() {
     movePlayer();
 
     dino.rotation = 0;
+    cactus.rotation = 0;
+    cactus.vel.x = obstacleVel;
 
     // Handle background movement
     for (let i = 0; i < 3; i++) {
@@ -120,18 +131,21 @@ function draw() {
       }
     }
     for (let i = 0; i < dirtDensity; i++) {
-      if (dirt[i].x < -100) {
-        dirt[i].x = width;
-        dirt.vel.x = -5;
-      }
+      // if (dirt[i].x < -100) {
+      //   dirt[i].x = width;
+      //   dirt.vel.x = -5;
+      // }
+      leftToRight(dirt[i]);
     }
     if (terrain_1.x < -100) {
       terrain_1.x = width;
       terrain_1.vel.x = -5;
     }
+    leftToRight(cactus);
     clouds.debug = mouse.holding();
     dino.debug = mouse.holding();
   }
+  // TODO: Change description
   describe("Move square with arrow keys.");
 }
 
@@ -143,5 +157,13 @@ function movePlayer() {
   // Change velocity based on key pressed
   if (kb.presses("ArrowUp")) {
       dino.vel.y = -6;
+  }
+}
+
+function leftToRight(sprt) {
+  if (sprt.x < -100) {
+    sprt.x = width - 100;
+    sprt.y = ground.y;
+    sprt.vel.x = obstacleVel;
   }
 }
