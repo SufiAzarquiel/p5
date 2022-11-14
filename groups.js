@@ -18,24 +18,24 @@ class Collection {
 }
 
 // A group of clouds
-const cloudAmmount = 3;
 class Clouds extends Collection {
     constructor(ammount) {
         super(
             40,
-            () => random(0, width),
+            () => random() * width + width,
             () => random(0, height/2.5),
             ammount
         );
         this.ammount = ammount;
+        this.group.vel.x = -5;
     }
 
     // Handle movement of items on the group
     move() {
-        this.group.vel.x = -5;
         for (let i = 0; i < this.ammount; i++) {
             if (this.group[i].x < 10) {
-                this.group[i].x += random(700, 1500);
+                this.group[i].x += width + 40;
+                this.group[i].y = random(0, height/2.5);
             }
         }
     }

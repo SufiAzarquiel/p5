@@ -28,10 +28,11 @@ function preload() {
     terrain_1_img = loadImage("images/terrain_1.png");
     terrain_2_img = loadImage("images/terrain_2.png");
 }
-
+const WINDOWSIZE = 640;
 // Intialize world
 function setup() {
-    createCanvas(windowWidth - 50, windowHeight - 50);
+    // createCanvas(windowWidth - 50, windowHeight - 50);
+    createCanvas(WINDOWSIZE, WINDOWSIZE);
 
     // Ground position
     const groundY = height - 50;
@@ -58,7 +59,7 @@ function draw() {
 
     // Set camera
     camera.on();
-    camera.zoom = 0.5;
+    camera.zoom = 0.9;
 
     // Draw line at middle of the screen
     line(0, height, 0, 0);
@@ -77,21 +78,11 @@ function draw() {
         // Handle player movement
         player.move();
         cloudGroup.move();
-
-        // After moving player, move camera
-        camera.x = player.sprite.x;
-        camera.y = player.sprite.y;
     } else {
         // if game loop isn't executing, stop all movement
         player.static();
         cloudGroup.static();
     }
-
-    // Draw positions
-    textSize(16);
-    text(cloudGroup.group[0].x, 10, 30);
-    text(cloudGroup.group[1].x, 10, 50);
-    text(cloudGroup.group[2].x, 10, 70);
 
     camera.off();
     // TODO: Change description
@@ -99,6 +90,6 @@ function draw() {
 }
 
 // On window resize, scale canvas
-function windowResized() {
-    resizeCanvas(windowWidth - 50, windowHeight - 50);
-}
+// function windowResized() {
+//     resizeCanvas(windowWidth - 50, windowHeight - 50);
+// }

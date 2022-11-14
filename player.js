@@ -11,30 +11,34 @@ class Player {
         // this.sprite.x = width / 2 - playerSize;
         // this.sprite.y = height / 2 - playerSize;
         this.sprite.x = playerSize*2;
-        this.sprite.y = groundY - playerSize;
+        this.sprite.y = WINDOWSIZE - playerSize;
         // this.sprite.addAni(runAni);
         // this.sprite.ani.frameDelay = 20;
         this.sprite.rotation = 0;
         this.sprite.collider = "none";
+        this.state = "runing";
     }
 
     // Handle player movement
     move() {
         if (kb.presses("ArrowUp")) {
-            this.sprite.vel.y = -playerVel;
-        } /*else if (kb.pressing("ArrowDown")) {
-            this.sprite.vel.y = playerVel;
-        } */else {
+            if(state != "jumping"){
+                this.sprite.vel.y -= 5;
+                state = "jumping";
+            } else {
+                state = "runing";
+            }
+        } else if (kb.pressing("ArrowDown")) {
+           if (state == "jumping") {
+                this.sprite.vel.y += 5;
+                state = "diving"
+           }
+        } else {
+            if (state = "diving") {
+                
+            }
             this.sprite.vel.y = 0;
         }
-
-        /*if (kb.pressing("ArrowLeft")) {
-            this.sprite.vel.x = -playerVel;
-        } else if (kb.pressing("ArrowRight")) {
-            this.sprite.vel.x = playerVel;
-        } else {
-            this.sprite.vel.x = 0;
-        }*/
     }
 
     // Pause all movement and rotation
